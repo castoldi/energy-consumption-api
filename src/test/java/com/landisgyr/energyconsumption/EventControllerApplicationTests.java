@@ -31,7 +31,7 @@ class EventControllerApplicationTests {
 	void createMeter() throws Exception {
 		String requestPayload = "{\"type\":\"import\", \"meterNumber\":\"1714A6\"}";
 		
-		 mockMvc.perform(post("/event")
+		mockMvc.perform(post("/event")
 		            .contentType("application/json")
 		            .content(requestPayload))
 		 			.andDo(print())
@@ -45,7 +45,11 @@ class EventControllerApplicationTests {
 	void createMeterNullMeterNumber() throws Exception {
 		String requestPayload = "{\"type\":\"import\"}";
 		
-		 mockMvc.perform(post("/event")
+		 eventBadRequestTest(requestPayload);
+	}
+
+	private void eventBadRequestTest(String requestPayload) throws Exception {
+		mockMvc.perform(post("/event")
 		            .contentType("application/json")
 		            .content(requestPayload))
 		 			.andDo(print())
@@ -59,7 +63,7 @@ class EventControllerApplicationTests {
 
 		String requestPayload = " {\"type\": \"push\", \"meterNumber\": \"1714A6\", \"activeEnergy\": 377,  \"injectedEnergy\": 47}";
 		
-		 mockMvc.perform(post("/event")
+		mockMvc.perform(post("/event")
 		            .contentType("application/json")
 		            .content(requestPayload))
 		 			.andDo(print())
@@ -75,7 +79,7 @@ class EventControllerApplicationTests {
 
 		String requestPayload = " {\"type\": \"push\", \"meterNumber\": \"1714A6\", \"activeEnergy\": 377,  \"injectedEnergy\": 47}";
 		
-		 mockMvc.perform(post("/event")
+		mockMvc.perform(post("/event")
 		            .contentType("application/json")
 		            .content(requestPayload))
 		 			.andDo(print())
@@ -89,7 +93,7 @@ class EventControllerApplicationTests {
 
 		String requestPayload = "{\"type\": \"billing\",  \"meterNumber\": \"1714A6\", \"unit\": 0.42}";
 		
-		 mockMvc.perform(post("/event")
+		mockMvc.perform(post("/event")
 		            .contentType("application/json")
 		            .content(requestPayload))
 		 			.andDo(print())
@@ -105,11 +109,7 @@ class EventControllerApplicationTests {
 
 		String requestPayload = "{\"type\": \"billing\",  \"meterNumber\": \"1714A6\"}";
 		
-		 mockMvc.perform(post("/event")
-		            .contentType("application/json")
-		            .content(requestPayload))
-		 			.andDo(print())
-		            .andExpect(status().isBadRequest());
+		eventBadRequestTest(requestPayload);
 	}
 	
 	@Test
@@ -118,7 +118,7 @@ class EventControllerApplicationTests {
 
 		String requestPayload = "{\"type\": \"billing\",  \"meterNumber\": \"1714A6\"}";
 		
-		 mockMvc.perform(post("/event")
+		mockMvc.perform(post("/event")
 		            .contentType("application/json")
 		            .content(requestPayload))
 		 			.andDo(print())
@@ -128,33 +128,18 @@ class EventControllerApplicationTests {
 	@Test
 	void createMeterInvalidType() throws Exception {
 		String requestPayload = "{\"type\":\"invalid\", \"meterNumber\": \"1714A6\"}";
-		
-		 mockMvc.perform(post("/event")
-		            .contentType("application/json")
-		            .content(requestPayload))
-		 			.andDo(print())
-		            .andExpect(status().isBadRequest());
+		eventBadRequestTest(requestPayload);
 	}
 	
 	@Test
 	void createMeterEmptyPayloadType() throws Exception {
 		String requestPayload = "{}";
-		
-		 mockMvc.perform(post("/event")
-		            .contentType("application/json")
-		            .content(requestPayload))
-		 			.andDo(print())
-		            .andExpect(status().isBadRequest());
+		eventBadRequestTest(requestPayload);
 	}
 	
 	@Test
 	void createMeterNullPayloadType() throws Exception {
 		String requestPayload = "";
-		
-		 mockMvc.perform(post("/event")
-		            .contentType("application/json")
-		            .content(requestPayload))
-		 			.andDo(print())
-		            .andExpect(status().isBadRequest());
+		eventBadRequestTest(requestPayload);
 	}
 }

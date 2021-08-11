@@ -49,14 +49,14 @@ public class EventController {
 		logger.info("Event received. {}", meterRequest);
 		
 		if (StringUtils.isBlank(meterRequest.getMeterNumber())) {
-			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		Meter meter = energyConsumptionService.findById(meterRequest.getMeterNumber());
 		ResponseEntity<Object> response = null;
 
 		if (EnergyConsumptionConstants.EVENT_TYPE_IMPORT.equals(meterRequest.getType())) {
-			response = importMeter(meterRequest, meter);
+			response = importMeter(meterRequest);
 
 		} else if (EnergyConsumptionConstants.EVENT_TYPE_PUSH.equals(meterRequest.getType())) {
 			response = pushMeter(meterRequest, meter);
@@ -70,12 +70,12 @@ public class EventController {
 		return response;
 	}
 
-	private ResponseEntity<Object> importMeter(MeterRequest meterRequest, Meter meter) throws MeterRepositoryException {
+	private ResponseEntity<Object> importMeter(MeterRequest meterRequest) throws MeterRepositoryException {
 		logger.info("Creating meterNumber {}.", meterRequest.getMeterNumber());
 		
-		meter = energyConsumptionService.save(meterRequest.getMeterNumber());
+		Meter meterSaved = energyConsumptionService.save(meterRequest.getMeterNumber());
 
-		return new ResponseEntity<Object>(new MeterResponse(meter), HttpStatus.CREATED);
+		return new ResponseEntity<>(new MeterResponse(meterSaved), HttpStatus.CREATED);
 	}
 
 	private ResponseEntity<Object> pushMeter(MeterRequest meterRequest, Meter meter) {
@@ -89,19 +89,19 @@ public class EventController {
 		meter.setMicrogeneration(meterRequest.getInjectedEnergy());
 
 		MeterResponse meterResponse = new MeterResponse(meter);
-		return new ResponseEntity<Object>(meterResponse, HttpStatus.CREATED);
+		return new ResponseEntity<>(meterResponse, HttpStatus.CREATED);
 	}
 	
 	private ResponseEntity<Object> billingMeter(MeterRequest meterRequest, Meter meter) throws BillingCalculationException {
 		logger.info("Billing energy consumption for meterNumber={}.", meterRequest.getMeterNumber());
 
 		if (meter == null) {
-			return new ResponseEntity<Object>("0", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("0", HttpStatus.NOT_FOUND);
 		}
 
 		Double cash = energyConsumptionService.calculateBilling(meter.getConsumption(), meter.getMicrogeneration(), meterRequest.getUnit());
 		MeterResponse meterResponse = new MeterResponse(new Meter(meter.getMeterNo(), cash));
-		return new ResponseEntity<Object>(meterResponse, HttpStatus.CREATED);
+		return new ResponseEntity<>(meterResponse, HttpStatus.CREATED);
 	}
 
 }

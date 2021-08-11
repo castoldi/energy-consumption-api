@@ -18,7 +18,7 @@ import com.landisgyr.energyconsumption.model.Meter;
 import com.landisgyr.energyconsumption.repository.MeterRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultEnergyConsumptionServiceTest {
+class DefaultEnergyConsumptionServiceTest {
 
 	@InjectMocks
 	DefaultEnergyConsumptionService service;

@@ -18,7 +18,7 @@ import com.landisgyr.energyconsumption.repository.MeterRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ConsumptionControllerApplicationTests {
+class ConsumptionControllerApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 	

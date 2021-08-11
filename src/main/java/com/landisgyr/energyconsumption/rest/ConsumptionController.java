@@ -30,7 +30,7 @@ public class ConsumptionController {
 			return new ResponseEntity<String>("0", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<String>(String.valueOf(meter.getConsumption()), HttpStatus.OK);
+		return new ResponseEntity<>(String.valueOf(meter.getConsumption()), HttpStatus.OK);
 	}
 
 	@GetMapping(value = EnergyConsumptionConstants.MICROGENERATION_ENDPOINT)
@@ -39,10 +39,10 @@ public class ConsumptionController {
 
 		if (meter == null) {
 			logger.error("Unable to get microgeneration, meter={} not found.", meterNumber);
-			return new ResponseEntity<String>("0", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("0", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<String>(String.valueOf(meter.getMicrogeneration()), HttpStatus.OK);
+		return new ResponseEntity<>(String.valueOf(meter.getMicrogeneration()), HttpStatus.OK);
 	}
 
 }

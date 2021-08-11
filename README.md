@@ -26,6 +26,12 @@ mvn clean spring-boot:run
 mvn clean test
 ```
 
+* Run SonarQube with below command.
+
+```sh
+mvn install sonar:sonar -Dsonar.login=login -Dsonar.password=password
+```
+
 ### Run the app using SSL certificates
 * To enable SSL need to start the application with "ssl" profile as per below.
 * When ssl profile is enabled the app will start on port 8443.

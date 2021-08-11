@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.landisgyr.energyconsumption.exception.MeterRepositoryException;
 import com.landisgyr.energyconsumption.model.Meter;
 
-public class DefaultMeterRepositoryTest {
+class DefaultMeterRepositoryTest {
 
 	DefaultMeterRepository meterRepo = new DefaultMeterRepository();
 
