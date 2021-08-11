@@ -1,0 +1,9 @@
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:certs/energyconsumption.p12
+    key-store-password: changeit
+    key-store-type: pkcs12
+    key-alias: energyconsumption
+    key-password: changeit
+  port: 8443
