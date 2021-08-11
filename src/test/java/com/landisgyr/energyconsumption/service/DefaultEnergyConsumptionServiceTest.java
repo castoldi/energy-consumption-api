@@ -84,7 +84,7 @@ class DefaultEnergyConsumptionServiceTest {
 	}
 
 	@Test
-	void testFindById() {
+	void testFindById() throws MeterRepositoryException {
 		when(meterRepo.findById("ABC")).thenReturn(new Meter("ABC", 0L, 0L));
 
 		Meter meter = service.findById("ABC");
@@ -97,14 +97,14 @@ class DefaultEnergyConsumptionServiceTest {
 	}
 
 	@Test
-	void testFindByIdNullMeterNumber() {
+	void testFindByIdNullMeterNumber() throws MeterRepositoryException {
 		Meter meter = service.findById(null);
 		assertNull(meter);
 	}
-	
+
 	@Test
-	void testFindByIdEmptyMeterNumber() {
-		Meter meter = service.findById(null);
+	void testFindByIdEmptyMeterNumber() throws MeterRepositoryException {
+		Meter meter = service.findById("");
 		assertNull(meter);
 	}
 

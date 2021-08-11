@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.landisgyr.energyconsumption.EnergyConsumptionConstants;
+import com.landisgyr.energyconsumption.exception.MeterRepositoryException;
 import com.landisgyr.energyconsumption.model.Meter;
 import com.landisgyr.energyconsumption.repository.MeterRepository;
 
@@ -24,17 +25,18 @@ public class ConsumptionController {
 	}
 
 	@GetMapping(value = EnergyConsumptionConstants.CONSUMPTION_ENDPOINT)
-	public ResponseEntity<String> getConsumption(@RequestParam(EnergyConsumptionConstants.METER_NUMBER) String meterNumber) {
+	public ResponseEntity<String> getConsumption(@RequestParam(EnergyConsumptionConstants.METER_NUMBER) String meterNumber) throws MeterRepositoryException {
 		Meter meter = meterRepo.findById(meterNumber);
+		
 		if (meter == null) {
-			return new ResponseEntity<String>("0", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("0", HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<>(String.valueOf(meter.getConsumption()), HttpStatus.OK);
 	}
 
 	@GetMapping(value = EnergyConsumptionConstants.MICROGENERATION_ENDPOINT)
-	public ResponseEntity<String> getMicroGeneration(@RequestParam(EnergyConsumptionConstants.METER_NUMBER) String meterNumber) {
+	public ResponseEntity<String> getMicroGeneration(@RequestParam(EnergyConsumptionConstants.METER_NUMBER) String meterNumber) throws MeterRepositoryException {
 		Meter meter = meterRepo.findById(meterNumber);
 
 		if (meter == null) {

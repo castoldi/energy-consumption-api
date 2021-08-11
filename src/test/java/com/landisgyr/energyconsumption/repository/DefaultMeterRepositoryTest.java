@@ -41,7 +41,8 @@ class DefaultMeterRepositoryTest {
 	
 	@Test
 	void testFindByIdNullMeter() throws MeterRepositoryException {
-		Meter meter = meterRepo.findById(null);
-		assertNull(meter);
+		Assertions.assertThrows(MeterRepositoryException.class, () -> {
+			meterRepo.findById(null);
+		}); 
 	}
 }

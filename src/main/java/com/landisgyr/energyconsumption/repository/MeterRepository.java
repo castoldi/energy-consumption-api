@@ -8,8 +8,9 @@ public interface MeterRepository {
 	 * Finds Meter by meterNo.
 	 * @param meterNo alphanumeric meter number.
 	 * @return Returns the Meter object if found, returns null if not found.
+	 * @throws MeterRepositoryException Throws exception if the meterNo is blank.
 	 */
-	Meter findById(String meterNo);
+	Meter findById(String meterNo) throws MeterRepositoryException;
 	
 	/**
 	 * Persists the Meter object. Replaces any existing object.

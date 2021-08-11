@@ -14,7 +14,11 @@ public class DefaultMeterRepository implements MeterRepository {
 	private Map<String, Meter> meterData = new ConcurrentHashMap<>();
 
 	@Override
-	public Meter findById(String meterNo) {
+	public Meter findById(String meterNo) throws MeterRepositoryException {
+		if (StringUtils.isBlank(meterNo)) {
+			throw new MeterRepositoryException("The meterNo is mandatory.");
+		}
+
 		return meterData.get(meterNo);
 	}
 

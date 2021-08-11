@@ -48,6 +48,13 @@ class EventControllerApplicationTests {
 		 eventBadRequestTest(requestPayload);
 	}
 
+	@Test
+	void createMeterEmptyMeterNumber() throws Exception {
+		String requestPayload = "{\"type\":\"import\", \"meterNumber\":\"\"}";
+		
+		 eventBadRequestTest(requestPayload);
+	}
+	
 	private void eventBadRequestTest(String requestPayload) throws Exception {
 		mockMvc.perform(post("/event")
 		            .contentType("application/json")
@@ -73,6 +80,21 @@ class EventControllerApplicationTests {
 		            .andExpect(status().isCreated());
 	}
 	
+
+	@Test
+	void receiveEnergyDataInvalidActiveEnergy() throws Exception {
+		String requestPayload = " {\"type\": \"push\", \"meterNumber\": \"1714A6\", \"activeEnergy\": \"ABC\",  \"injectedEnergy\": 47}";
+		
+		eventBadRequestTest(requestPayload);
+	}
+	
+	@Test
+	void receiveEnergyInvalidDataInjectedEnergy() throws Exception {
+		String requestPayload = " {\"type\": \"push\", \"meterNumber\": \"1714A6\", \"activeEnergy\": \"377\",  \"injectedEnergy\": \"XX\"}";
+		
+		eventBadRequestTest(requestPayload);
+	}
+	
 	@Test
 	void receiveEnergyDataMeterNotFound() throws Exception {
 		when(meterRepo.findById("1714A6")).thenReturn(null);
@@ -91,7 +113,7 @@ class EventControllerApplicationTests {
 		Meter meter = new Meter("1714A6", 377L, 47L);
 		when(meterRepo.findById("1714A6")).thenReturn(meter);
 
-		String requestPayload = "{\"type\": \"billing\",  \"meterNumber\": \"1714A6\", \"unit\": 0.42}";
+		String requestPayload = "{\"type\": \"billing\", \"meterNumber\": \"1714A6\", \"unit\": 0.42}";
 		
 		mockMvc.perform(post("/event")
 		            .contentType("application/json")
@@ -107,16 +129,24 @@ class EventControllerApplicationTests {
 		Meter meter = new Meter("1714A6", 377L, 47L);
 		when(meterRepo.findById("1714A6")).thenReturn(meter);
 
-		String requestPayload = "{\"type\": \"billing\",  \"meterNumber\": \"1714A6\"}";
+		String requestPayload = "{\"type\": \"billing\", \"meterNumber\": \"1714A6\"}";
 		
 		eventBadRequestTest(requestPayload);
 	}
 	
 	@Test
+	void billing_empty_meterNumber() throws Exception {
+		String requestPayload = "{\"type\": \"billing\", \"meterNumber\": \"\"}";
+		
+		eventBadRequestTest(requestPayload);
+	}
+	
+	
+	@Test
 	void billing_meter_not_found() throws Exception {
 		when(meterRepo.findById("1714A6")).thenReturn(null);
 
-		String requestPayload = "{\"type\": \"billing\",  \"meterNumber\": \"1714A6\"}";
+		String requestPayload = "{\"type\": \"billing\", \"meterNumber\": \"1714A6\"}";
 		
 		mockMvc.perform(post("/event")
 		            .contentType("application/json")
@@ -138,7 +168,7 @@ class EventControllerApplicationTests {
 	}
 	
 	@Test
-	void createMeterNullPayloadType() throws Exception {
+	void createMeterInvalidPayloadType() throws Exception {
 		String requestPayload = "";
 		eventBadRequestTest(requestPayload);
 	}

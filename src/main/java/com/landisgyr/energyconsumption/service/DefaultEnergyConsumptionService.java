@@ -27,7 +27,7 @@ public class DefaultEnergyConsumptionService implements EnergyConsumptionService
 	}
 
 	@Override
-	public Meter findById(String meterNumber) {
+	public Meter findById(String meterNumber) throws MeterRepositoryException {
 		if (StringUtils.isBlank(meterNumber)) {
 			return null;
 		}
