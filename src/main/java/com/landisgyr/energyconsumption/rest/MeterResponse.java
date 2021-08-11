@@ -3,18 +3,18 @@ package com.landisgyr.energyconsumption.rest;
 import com.landisgyr.energyconsumption.model.Meter;
 
 public class MeterResponse {
-	private Meter meter;
+	private MeterInfo meter;
 
 	public MeterResponse(Meter meter) {
 		super();
-		this.meter = meter;
+		this.meter = new MeterInfo(meter);
 	}
 
-	public Meter getMeter() {
+	public MeterInfo getMeter() {
 		return meter;
 	}
 
-	public void setMeter(Meter meter) {
+	public void setMeter(MeterInfo meter) {
 		this.meter = meter;
 	}
 }

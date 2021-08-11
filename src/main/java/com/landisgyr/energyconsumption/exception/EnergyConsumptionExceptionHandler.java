@@ -16,10 +16,4 @@ public class EnergyConsumptionExceptionHandler {
 	public void handleBillingCalculationException(BillingCalculationException exception) {
 		logger.error("Billing calculation exception", exception);
 	}
-
-	@ExceptionHandler(MeterRepositoryException.class)
-	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public void handleMeterRepositoryException(MeterRepositoryException exception) {
-		logger.error("Billing calculation exception", exception);
-	}
 }
