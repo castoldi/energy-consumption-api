@@ -16,6 +16,8 @@ mvn clean spring-boot:run
 
 [POST] http://localhost:8080/event
 
+Need to add Content-Type: application/json in the header.
+
 [GET] http://localhost:8080/consumption?meter_number=1714A6
 
 [GET] http://localhost:8080/microgeneration?meter_number=1714A6
