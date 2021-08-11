@@ -16,8 +16,9 @@ public interface EnergyConsumptionService {
 	 * Finds the meter by number.
 	 * @param meterNumber alphanumeric number.
 	 * @return Meter object or null if not found.
+	 * @throws MeterRepositoryException IF the meterNumber is blank.
 	 */
-	Meter findById(String meterNumber);
+	Meter findById(String meterNumber) throws MeterRepositoryException;
 
 	/**
 	 * Creates and persists a new Meter using the meterNumber, will set consumption and microgeneration to zero.

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.landisgyr.energyconsumption.exception.MeterRepositoryException;
 import com.landisgyr.energyconsumption.model.Meter;
 
-public class DefaultMeterRepositoryTest {
+class DefaultMeterRepositoryTest {
 
 	DefaultMeterRepository meterRepo = new DefaultMeterRepository();
 
@@ -41,7 +41,8 @@ public class DefaultMeterRepositoryTest {
 	
 	@Test
 	void testFindByIdNullMeter() throws MeterRepositoryException {
-		Meter meter = meterRepo.findById(null);
-		assertNull(meter);
+		Assertions.assertThrows(MeterRepositoryException.class, () -> {
+			meterRepo.findById(null);
+		}); 
 	}
 }

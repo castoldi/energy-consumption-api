@@ -1,14 +1,16 @@
 package com.landisgyr.energyconsumption.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-@JsonInclude(Include.NON_NULL)
+/**
+ * Persistence entity.
+ */
 public class Meter {
 	private String meterNo;
 	private Long consumption;
 	private Long microgeneration;
 	private Double cash;
+	
+	public Meter() {
+	}
 
 	public Meter(String meterNo, Double cash) {
 		this.meterNo = meterNo;
@@ -19,6 +21,14 @@ public class Meter {
 		this.meterNo = meterNo;
 		this.consumption = consumption;
 		this.microgeneration = microgeneration;
+	}
+	
+	public Meter(String meterNo, Long consumption, Long microgeneration, Double cash) {
+		super();
+		this.meterNo = meterNo;
+		this.consumption = consumption;
+		this.microgeneration = microgeneration;
+		this.cash = cash;
 	}
 
 	public String getMeterNo() {
