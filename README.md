@@ -1,5 +1,10 @@
 # Getting Started
 
+## Prerequisites
+* JDK 11 installed
+* Maven
+* Preference IDE
+
 ### How to run the app
 * The mainclass is com.landisgyr.energyconsumption.EnergyConsumptionApiApplication
 * Run the app using below maven command.
