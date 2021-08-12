@@ -18,7 +18,7 @@ public interface EnergyConsumptionService {
 	 * @return Meter object or null if not found.
 	 * @throws MeterRepositoryException IF the meterNumber is blank.
 	 */
-	Meter findById(String meterNumber) throws MeterRepositoryException;
+	Meter findMeterById(String meterNumber) throws MeterRepositoryException;
 
 	/**
 	 * Creates and persists a new Meter using the meterNumber, will set consumption and microgeneration to zero.
@@ -26,6 +26,6 @@ public interface EnergyConsumptionService {
 	 * @return The saved meter.
 	 * @throws MeterRepositoryException The Exception is throw if meterNumber is blank. Blank means "", " " or null.
 	 */
-	Meter save(String meterNumber) throws MeterRepositoryException;
+	Meter saveMeter(String meterNumber) throws MeterRepositoryException;
 
 }

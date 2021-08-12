@@ -52,7 +52,7 @@ public class EventController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		Meter meter = energyConsumptionService.findById(meterRequest.getMeterNumber());
+		Meter meter = energyConsumptionService.findMeterById(meterRequest.getMeterNumber());
 		ResponseEntity<Object> response = null;
 
 		if (EnergyConsumptionConstants.EVENT_TYPE_IMPORT.equals(meterRequest.getType())) {
@@ -73,7 +73,7 @@ public class EventController {
 	private ResponseEntity<Object> importMeter(MeterRequest meterRequest) throws MeterRepositoryException {
 		logger.info("Creating meterNumber {}.", meterRequest.getMeterNumber());
 		
-		Meter meterSaved = energyConsumptionService.save(meterRequest.getMeterNumber());
+		Meter meterSaved = energyConsumptionService.saveMeter(meterRequest.getMeterNumber());
 
 		return new ResponseEntity<>(new MeterResponse(meterSaved), HttpStatus.CREATED);
 	}
