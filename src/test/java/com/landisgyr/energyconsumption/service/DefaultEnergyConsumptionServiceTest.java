@@ -61,7 +61,7 @@ class DefaultEnergyConsumptionServiceTest {
 
 	@Test
 	void testSave() throws MeterRepositoryException {
-		Meter meter = service.save("ABC");
+		Meter meter = service.saveMeter("ABC");
 		assertNotNull(meter);
 		assertEquals("ABC", meter.getMeterNo());
 		assertEquals(0L, meter.getConsumption());
@@ -72,14 +72,14 @@ class DefaultEnergyConsumptionServiceTest {
 	@Test
 	void testSaveNullMeterNumber() throws MeterRepositoryException {
 		Assertions.assertThrows(MeterRepositoryException.class, () -> {
-			service.save(null);
+			service.saveMeter(null);
 		});
 	}
 
 	@Test
 	void testSaveEmptyMeterNumber() throws MeterRepositoryException {
 		Assertions.assertThrows(MeterRepositoryException.class, () -> {
-			service.save("");
+			service.saveMeter("");
 		});
 	}
 
@@ -87,7 +87,7 @@ class DefaultEnergyConsumptionServiceTest {
 	void testFindById() throws MeterRepositoryException {
 		when(meterRepo.findById("ABC")).thenReturn(new Meter("ABC", 0L, 0L));
 
-		Meter meter = service.findById("ABC");
+		Meter meter = service.findMeterById("ABC");
 
 		assertNotNull(meter);
 		assertEquals("ABC", meter.getMeterNo());
@@ -98,13 +98,13 @@ class DefaultEnergyConsumptionServiceTest {
 
 	@Test
 	void testFindByIdNullMeterNumber() throws MeterRepositoryException {
-		Meter meter = service.findById(null);
+		Meter meter = service.findMeterById(null);
 		assertNull(meter);
 	}
 
 	@Test
 	void testFindByIdEmptyMeterNumber() throws MeterRepositoryException {
-		Meter meter = service.findById("");
+		Meter meter = service.findMeterById("");
 		assertNull(meter);
 	}
 

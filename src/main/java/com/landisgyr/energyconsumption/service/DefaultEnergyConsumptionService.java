@@ -27,7 +27,7 @@ public class DefaultEnergyConsumptionService implements EnergyConsumptionService
 	}
 
 	@Override
-	public Meter findById(String meterNumber) throws MeterRepositoryException {
+	public Meter findMeterById(String meterNumber) throws MeterRepositoryException {
 		if (StringUtils.isBlank(meterNumber)) {
 			return null;
 		}
@@ -36,7 +36,7 @@ public class DefaultEnergyConsumptionService implements EnergyConsumptionService
 	}
 
 	@Override
-	public Meter save(String meterNumber) throws MeterRepositoryException {
+	public Meter saveMeter(String meterNumber) throws MeterRepositoryException {
 		if (StringUtils.isBlank(meterNumber)) {
 			throw new MeterRepositoryException("Cannot save when meter number is empty.");
 		}
